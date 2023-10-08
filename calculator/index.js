@@ -8,6 +8,12 @@ function clearDisplay() {
     display.value = '';
 }
 
+function backspace() {
+    if (display.value.length > 0) {
+        display.value = display.value.slice(0, -1);
+    }
+}
+
 function add(x, y) {
     return x + y;
 }
@@ -55,6 +61,9 @@ function operate(x, y, expression) {
     }
 }
 
+// TODO: Key bindings
+// TODO: Evaluate expression properly and able to perform multiple operations (12 * 7 - 3 / 8)
+
 function calculate() {
     try {
         const expression = display.value;
@@ -63,7 +72,8 @@ function calculate() {
 
         for (const op of operators) {
             if (expression.includes(op)) {
-                operator = op;           
+                operator = op;
+                break;
             }
         }
 
@@ -73,12 +83,8 @@ function calculate() {
             const x = parseFloat(operand1);
             const y = parseFloat(operand2);
 
-            if (!isNaN(x) && !isNaN(x)) {
-                const result = operate(x, y, operator);
-                display.value = result;
-            } else {
-                display.value = 'Invalid input';
-            }
+            const result = operate(x, y, operator);
+            display.value = result;
         } else {
             display.value = 'Invalid input';
         }
