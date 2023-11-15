@@ -1,4 +1,28 @@
+document.addEventListener('keydown', handleKeyPress);
 const display = document.getElementById('display'); 
+
+function handleKeyPress(event) {
+    key = event.key;
+
+    if (/\d|\+|\-|\*|\/|Enter/.test(key)) {
+        event.preventDefault(); 
+        if (key === 'Enter') {
+            calculate();
+        } else {
+            appendToDisplay(key);
+        }
+    }
+
+    if (key === 'Backspace') {
+        event.preventDefault();
+        backspace();
+    }
+
+    if (key === 'Escape') {
+        event.preventDefault();
+        clearDisplay();
+    }
+}
 
 function appendToDisplay(expression) {
     display.value += expression;
@@ -61,7 +85,6 @@ function operate(x, y, expression) {
     }
 }
 
-// TODO: Key bindings
 // TODO: Evaluate expression properly and able to perform multiple operations (12 * 7 - 3 / 8)
 
 function calculate() {
